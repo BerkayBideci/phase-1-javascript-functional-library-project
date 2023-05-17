@@ -1,4 +1,4 @@
-require ( './helpers.js' );
+require('./helpers.js');
 
 const chai = require('chai')
 const spies = require('chai-spies-next')
@@ -7,7 +7,7 @@ const expect = chai.expect
 
 describe('index.js', function () {
   const unmodifiedTestArr = [1, 2, 3, 4]
-  const unmodifiedTestObj = {one: 1, two: 2, three: 3, four: 4}
+  const unmodifiedTestObj = { one: 1, two: 2, three: 3, four: 4 }
 
 
   describe('myEach', function () {
@@ -92,15 +92,15 @@ describe('index.js', function () {
 
   })
 
-  describe('myFind', function() {
+  describe('myFind', function () {
     function findCBGenerator(target) {
-      return (function(currEl) { return target === currEl })
+      return (function (currEl) { return target === currEl })
     }
 
     const intArr = [-1, 4, 0, 1, 3, 2, 3, 4, 5, 6]
     const strArr = ["maru", "choux", "doge", "coco", "waychillgoldeneye", "trance"]
-    const objB = {b: 'b'}
-    const objArr = [{a: 'a'}, objB]
+    const objB = { b: 'b' }
+    const objArr = [{ a: 'a' }, objB]
 
     it('returns the value if found', function () {
       expect(myFind(intArr, findCBGenerator(4))).to.equal(4)
@@ -117,14 +117,14 @@ describe('index.js', function () {
     it('returns undefined if the value is not present', function () {
       expect(myFind(intArr, findCBGenerator(7))).to.equal(undefined)
       expect(myFind(strArr, findCBGenerator("maxwellisbestmax"))).to.equal(undefined)
-      expect(myFind(objArr, findCBGenerator({c: 'c'}))).to.equal(undefined)
+      expect(myFind(objArr, findCBGenerator({ c: 'c' }))).to.equal(undefined)
     })
 
   })
 
   describe('myFilter', function () {
     const testArr = [6, 11, 5, 12, 17, 100, 9, 1, -8]
-    const testObj = { two: 2, three: 3, five: 5, seven: 7}
+    const testObj = { two: 2, three: 3, five: 5, seven: 7 }
 
     function excluder(currEl) {
       return (currEl > 10)
@@ -178,61 +178,61 @@ describe('index.js', function () {
     })
   })
 
-  // describe('mySortBy', function () {
-  //   const unsortedIntArr = [3, 8, 5, 1, 9, 11, 8]
-  //   const unsortedStringArr = ["maru", "choux", "doge", "coconut"]
-  //   const unsortedObjArr = [
-  //     {name: "dennis", age: 29},
-  //     {name: "dee", age: 40},
-  //     {name: "mac", age: 34},
-  //     {name: "charlie", age: 32},
-  //     {name: "frank", age: 72}
-  //   ]
-  //   const controlSortedObjArr = [
-  //     {name: "dennis", age: 29},
-  //     {name: "charlie", age: 32},
-  //     {name: "mac", age: 34},
-  //     {name: "dee", age: 40},
-  //     {name: "frank", age: 72}
-  //   ]
+  describe('mySortBy', function () {
+    const unsortedIntArr = [3, 8, 5, 1, 9, 11, 8]
+    const unsortedStringArr = ["maru", "choux", "doge", "coconut"]
+    const unsortedObjArr = [
+      { name: "dennis", age: 29 },
+      { name: "dee", age: 40 },
+      { name: "mac", age: 34 },
+      { name: "charlie", age: 32 },
+      { name: "frank", age: 72 }
+    ]
+    const controlSortedObjArr = [
+      { name: "dennis", age: 29 },
+      { name: "charlie", age: 32 },
+      { name: "mac", age: 34 },
+      { name: "dee", age: 40 },
+      { name: "frank", age: 72 }
+    ]
 
-  //   function sortArrFunction(val) { return val }
-  //   function sortIntsBySin(val)   { return Math.sin(val) }
-  //   function sortObjFunction(obj) { return obj.age }
+    function sortArrFunction(val) { return val }
+    function sortIntsBySin(val) { return Math.sin(val) }
+    function sortObjFunction(obj) { return obj.age }
 
-  //   it('correctly sorts arrays of integers and arrays of strings', function () {
-  //     expect(arraysEqual(mySortBy(unsortedIntArr, sortArrFunction), [1, 3, 5, 8, 8, 9, 11])).to.equal(true)
-  //     expect(arraysEqual(mySortBy(unsortedStringArr, sortArrFunction), ["choux", "coconut", "doge", "maru"])).to.equal(true)
-  //   })
+    it('correctly sorts arrays of integers and arrays of strings', function () {
+      expect(arraysEqual(mySortBy(unsortedIntArr, sortArrFunction), [1, 3, 5, 8, 8, 9, 11])).to.equal(true)
+      expect(arraysEqual(mySortBy(unsortedStringArr, sortArrFunction), ["choux", "coconut", "doge", "maru"])).to.equal(true)
+    })
 
-  //   it('does not modify the original arrays', function () {
-  //     mySortBy(unsortedIntArr, sortArrFunction)
-  //     mySortBy(unsortedStringArr, sortArrFunction)
-  //     expect(arraysEqual(unsortedIntArr, [3, 8, 5, 1, 9, 11, 8])).to.equal(true)
-  //     expect(arraysEqual(unsortedStringArr, ["maru", "choux", "doge", "coconut"])).to.equal(true)
-  //   })
+    it('does not modify the original arrays', function () {
+      mySortBy(unsortedIntArr, sortArrFunction)
+      mySortBy(unsortedStringArr, sortArrFunction)
+      expect(arraysEqual(unsortedIntArr, [3, 8, 5, 1, 9, 11, 8])).to.equal(true)
+      expect(arraysEqual(unsortedStringArr, ["maru", "choux", "doge", "coconut"])).to.equal(true)
+    })
 
-  //   it('correctly sorts arrays of integers with non-standard sort', function () {
-  //     expect(arraysEqual(mySortBy([1, 2, 3, 4, 5, 6], sortIntsBySin), [5, 4, 6, 3, 1, 2])).to.equal(true)
-  //   })
+    it('correctly sorts arrays of integers with non-standard sort', function () {
+      expect(arraysEqual(mySortBy([1, 2, 3, 4, 5, 6], sortIntsBySin), [5, 4, 6, 3, 1, 2])).to.equal(true)
+    })
 
-  // })
+  })
 
-  // describe('myFlatten', function () {
+  describe('myFlatten', function () {
 
-  //   it('correctly flattens a ludicrously nested array', function () {
-  //     const nestedArr = [1, [2, 3], [[4, 5], 6, [7, [8, 9]]]]
-  //     const flatArr = myFlatten(nestedArr)
-  //     expect(arraysEqual(flatArr, [1, 2, 3, 4, 5, 6, 7, 8, 9])).to.equal(true)
-  //   })
+    it('correctly flattens a ludicrously nested array', function () {
+      const nestedArr = [1, [2, 3], [[4, 5], 6, [7, [8, 9]]]]
+      const flatArr = myFlatten(nestedArr)
+      expect(arraysEqual(flatArr, [1, 2, 3, 4, 5, 6, 7, 8, 9])).to.equal(true)
+    })
 
-  //   it('correctly flattens a single level when a second argument of "true" is passed', function () {
-  //     const nestedArr = [1, [2, 3], [[4, 5], 6, [7, [8, 9]]]]
-  //     const flatArr = myFlatten(nestedArr, true)
-  //     expect(arraysEqual(flatArr, [1, 2, 3, [4, 5], 6, [7, [8, 9]]])).to.equal(true)
-  //   })
+    it('correctly flattens a single level when a second argument of "true" is passed', function () {
+      const nestedArr = [1, [2, 3], [[4, 5], 6, [7, [8, 9]]]]
+      const flatArr = myFlatten(nestedArr, true)
+      expect(arraysEqual(flatArr, [1, 2, 3, [4, 5], 6, [7, [8, 9]]])).to.equal(true)
+    })
 
-  // })
+  })
 
   describe('myKeys', function () {
     const testObj = Object.assign({}, unmodifiedTestObj)
